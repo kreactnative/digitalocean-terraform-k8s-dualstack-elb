@@ -10,8 +10,10 @@ tag_elb_master_name = "talos-control-plane"
 image_id            = "146722313"
 MASTER_COUNT        = 2
 master_size         = "s-2vcpu-4gb"
+master_name         = "talos-master"
 WORKER_COUNT        = 2
 worker_size         = "s-2vcpu-4gb"
+worker_name         = "talos-worker"
 
 
 

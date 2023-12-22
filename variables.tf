@@ -17,18 +17,24 @@ variable "tag_elb_master_name" {
 variable "master_size" {
   type = string
 }
+variable "master_name" {
+  type = string
+  default = "talos-master"
+}
 variable "image_id" {
   type = string
 }
 variable "worker_size" {
   type = string
 }
+variable "worker_name" {
+  type = string
+  default = "talos-worker"
+}
 variable "MASTER_COUNT" {
-  description = "Number of masters to create (Should be an odd number)"
   type        = number
 }
 
 variable "WORKER_COUNT" {
-  description = "Number of workers to create"
   type        = number
 }

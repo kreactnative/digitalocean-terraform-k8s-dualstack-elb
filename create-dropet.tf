@@ -6,7 +6,7 @@ resource "digitalocean_ssh_key" "dummy" {
 resource "digitalocean_droplet" "control-plane" {
   depends_on = [digitalocean_ssh_key.dummy]
   count      = var.MASTER_COUNT
-  name       = "talos-control-plane-${count.index + 1}"
+  name       = "${var.master_name}-${count.index + 1}"
   region     = var.region
   image      = var.image_id
   size       = var.master_size
@@ -17,7 +17,7 @@ resource "digitalocean_droplet" "control-plane" {
 resource "digitalocean_droplet" "worker" {
   depends_on = [digitalocean_ssh_key.dummy]
   count      = var.WORKER_COUNT
-  name       = "talos-worker-node-${count.index + 1}"
+  name       = "${var.worker_name}-${count.index + 1}"
   region     = var.region
   image      = var.image_id
   size       = var.worker_size
