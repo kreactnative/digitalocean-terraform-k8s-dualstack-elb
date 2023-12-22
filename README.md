@@ -2,7 +2,7 @@
 ### variables
 #### terraform.tfvars
 ```
-do_token          = "chameme"
+do_token          = "change me"
 loadbalancer_name = "talos-elb"
 region            = "sgp1"
 
