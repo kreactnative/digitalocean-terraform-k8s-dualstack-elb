@@ -24,3 +24,10 @@ worker_name         = "talos-worker"
 - download DigitalOcean image digital-ocean-amd64.raw.gz
 - upload custom image and get id
 ```
+
+### screenshot
+![Screenshot](resources/1703260614855.jpg)
+
+![Screenshot](resources/1703260626217.jpg)
+
+![Screenshot](resources/1703260637096.jpg)
