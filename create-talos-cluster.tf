@@ -1,6 +1,6 @@
 resource "null_resource" "cleanup" {
   provisioner "local-exec" {
-    command     = "rm -f talos_setup.sh  talosconfig worker.yaml controlplane.yaml"
+    command     = "rm -f talos_setup.sh cilium.sh talosconfig worker.yaml controlplane.yaml"
     working_dir = path.root
   }
 }

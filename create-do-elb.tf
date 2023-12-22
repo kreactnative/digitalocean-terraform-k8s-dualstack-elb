@@ -1,6 +1,6 @@
 resource "digitalocean_loadbalancer" "public" {
   name   = var.loadbalancer_name
-  region = "sgp1"
+  region = var.region
 
   forwarding_rule {
     entry_port     = 443
@@ -19,5 +19,5 @@ resource "digitalocean_loadbalancer" "public" {
     unhealthy_threshold      = 3
   }
 
-  droplet_tag = "talos-digital-ocean-control-plane"
+  droplet_tag = var.tag_elb_master_name
 }
