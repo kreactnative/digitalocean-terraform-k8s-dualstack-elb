@@ -1,3 +1,11 @@
+resource "null_resource" "cleanup" {
+  provisioner "local-exec" {
+    command     = "rm -f talos_setup.sh  talosconfig worker.yaml controlplane.yaml"
+    working_dir = path.root
+  }
+}
+
+
 resource "local_file" "talosctl_config" {
   depends_on = [
     digitalocean_droplet.control-plane,

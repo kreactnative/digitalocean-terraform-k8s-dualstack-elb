@@ -4,7 +4,7 @@ helm upgrade --install cilium cilium/cilium \
     --set ipam.mode=kubernetes \
     --set bpf.masquerade=true \
     --set encryption.nodeEncryption=false \
-    --set k8sServiceHost=${load_balancer} \
+    --set k8sServiceHost=167.172.5.115 \
     --set k8sServicePort=443  \
     --set kubeProxyReplacement=true  \
     --set operator.replicas=1  \
