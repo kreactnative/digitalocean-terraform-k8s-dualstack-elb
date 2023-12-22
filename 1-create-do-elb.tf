@@ -20,8 +20,4 @@ resource "digitalocean_loadbalancer" "public" {
   }
 
   droplet_tag = "talos-digital-ocean-control-plane"
-
-  provisioner "local-exec" {
-    command = "sh scripts/init-talos-config.sh ${self.ip}"
-  }
 }
