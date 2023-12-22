@@ -20,8 +20,9 @@ worker_name         = "talos-worker"
 
 ```
 #### upload image
+[DigitalOcean image](https://github.com/siderolabs/talos/releases)
 ```
-- download DigitalOcean image digital-ocean-amd64.raw.gz
+- download DigitalOcean image digital-ocean-amd64.raw.gz 
 - upload custom image and get id
 ```
 
