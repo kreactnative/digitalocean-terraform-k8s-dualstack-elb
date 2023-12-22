@@ -31,3 +31,5 @@ worker_name         = "talos-worker"
 ![Screenshot](resources/1703260626217.jpg)
 
 ![Screenshot](resources/1703260637096.jpg)
+
+![Screenshot](resources/1703261047885.jpg)
