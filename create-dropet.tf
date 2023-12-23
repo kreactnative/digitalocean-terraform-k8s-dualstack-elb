@@ -1,5 +1,5 @@
 resource "digitalocean_ssh_key" "dummy" {
-  name       = "ssh key"
+  name       = "ssh_key"
   public_key = var.ssh_key
 }
 
