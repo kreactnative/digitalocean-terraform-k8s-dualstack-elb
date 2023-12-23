@@ -13,10 +13,6 @@ master_name         = "talos-master"
 WORKER_COUNT        = 2
 worker_size         = "s-2vcpu-4gb"
 worker_name         = "talos-worker"
-
-
-
-
 ```
 #### upload image
 [DigitalOcean image](https://github.com/siderolabs/talos/releases)
