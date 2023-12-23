@@ -15,7 +15,7 @@ echo "Applied worker config to ${node_host}"
 sleep 30
 talosctl bootstrap --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig
 echo "Started bootstrap process"
-sleep 60
+sleep 100
 
 # Update kubeconfig
 talosctl kubeconfig $HOME/.kube/talos-digitalocean-cilium-config --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig --force

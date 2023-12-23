@@ -8,4 +8,8 @@
 - op: add
   path: /cluster/network/cni
   value:
-    name: none
+    name:
+- op: add
+  path: /cluster
+  value:
+    allowSchedulingOnControlPlanes: true
