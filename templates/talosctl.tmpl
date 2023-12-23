@@ -13,19 +13,15 @@ echo "Applied worker config to ${node_host}"
 %{endfor}
 
 # Bootstrap
-sleep 60
+sleep 30
 talosctl bootstrap --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig
 echo "Started bootstrap process"
-sleep 60
+sleep 100
 
 # Update kubeconfig
 talosctl kubeconfig $HOME/.kube/talos-digitalocean-cilium-config --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig --force
 echo "Updated kubeconfig"
 export KUBECONFIG=$HOME/.kube/talos-digitalocean-cilium-config
-echo "switch context to new kubeconfig"
-kubectl config current-context
-echo "install cilium"
-./cilium.sh
 
 # Health check
 n=0
@@ -38,4 +34,10 @@ until [ "$n" -ge "$retries" ]; do
     sleep 5
   fi
 done
+
+echo "switch context to new kubeconfig"
+kubectl config current-context
+echo "install cilium"
+./cilium.sh
+
 echo "Successfully created cluster"
