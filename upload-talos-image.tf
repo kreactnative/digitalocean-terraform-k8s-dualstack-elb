@@ -5,7 +5,7 @@ locals {
   image_version = data.external.versions.result["imager_version"]
 }
 resource "digitalocean_custom_image" "talos" {
-  name    = "Talos Image"
+  name    = "digital-ocean-amd64.raw.gz"
   url     = "https://github.com/siderolabs/talos/releases/download/${local.image_version}/digital-ocean-amd64.raw.gz"
   regions = [var.region]
 }
