@@ -7,7 +7,6 @@ ssh_key             = "change me"
 region              = "sgp1"
 loadbalancer_name   = "talos-elb"
 tag_elb_master_name = "talos-control-plane"
-image_id            = "146722313"
 MASTER_COUNT        = 2
 master_size         = "s-2vcpu-4gb"
 master_name         = "talos-master"
@@ -22,8 +21,6 @@ worker_name         = "talos-worker"
 #### upload image
 [DigitalOcean image](https://github.com/siderolabs/talos/releases)
 ```
-- download DigitalOcean image digital-ocean-amd64.raw.gz 
-- upload custom image and get id
 ```
 
 ### screenshot

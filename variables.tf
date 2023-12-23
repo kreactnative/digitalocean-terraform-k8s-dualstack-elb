@@ -18,23 +18,20 @@ variable "master_size" {
   type = string
 }
 variable "master_name" {
-  type = string
+  type    = string
   default = "talos-master"
-}
-variable "image_id" {
-  type = string
 }
 variable "worker_size" {
   type = string
 }
 variable "worker_name" {
-  type = string
+  type    = string
   default = "talos-worker"
 }
 variable "MASTER_COUNT" {
-  type        = number
+  type = number
 }
 
 variable "WORKER_COUNT" {
-  type        = number
+  type = number
 }
