@@ -8,4 +8,4 @@
 - op: add
   path: /cluster/network/cni
   value:
-    name:
+    name: none
