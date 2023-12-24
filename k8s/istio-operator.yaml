@@ -1,0 +1,58 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: install
+spec:
+  meshConfig:
+    accessLogFile: /dev/stdout
+    defaultConfig:
+      proxyMetadata:
+        ISTIO_META_PROXY_XDS_VIA_AGENT: "true"
+        ISTIO_META_DNS_CAPTURE: "true"
+  components:
+    pilot:
+      k8s:
+        resources:
+          requests:
+            cpu: 200m
+            memory: 128Mi
+          limits:
+            cpu: 800m
+            memory: 256Mi
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          service:
+            ports:
+              - name: status-port
+                port: 15021
+                targetPort: 15021
+              - name: http2
+                port: 80
+                targetPort: 8080
+              - name: https
+                port: 443
+                targetPort: 8443
+              - name: http3
+                port: 443
+                targetPort: 8443
+                protocol: UDP
+          resources:
+            requests:
+              cpu: 300m
+              memory: 128Mi
+            limits:
+              cpu: 900m
+              memory: 256Mi
+  values:
+    pilot:
+      env:
+        PILOT_ENABLE_QUIC_LISTENERS: true
+        AUTO_RELOAD_PLUGIN_CERTS: true
+        PILOT_SKIP_VALIDATE_TRUST_DOMAIN: true
+    global:
+      proxy:
+        logLevel: error
+      logging:
+        level: error

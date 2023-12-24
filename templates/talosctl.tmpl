@@ -1,5 +1,6 @@
 #!/bin/bash
-talosctl gen config talos-do-ha-cilium https://${load_balancer}:443  --config-patch @cni.yaml
+#talosctl gen config talos-do-ha-cilium https://${load_balancer}:443  --config-patch @cni.yaml
+talosctl gen config talos-do-ha-cilium https://${load_balancer}:443
 sleep 10
 sed -i "" "s/# allowSchedulingOnControlPlanes/allowSchedulingOnControlPlanes/g" controlplane.yaml
 sleep 10
@@ -19,9 +20,8 @@ echo "Started bootstrap process"
 sleep 100
 
 # Update kubeconfig
-talosctl kubeconfig $HOME/.kube/talos-digitalocean-cilium-config --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig --force
 echo "Updated kubeconfig"
-export KUBECONFIG=$HOME/.kube/talos-digitalocean-cilium-config
+talosctl kubeconfig $HOME/.kube/talos-digitalocean-cilium-config --nodes ${primary_controller} -e ${primary_controller} --talosconfig=./talosconfig --force
 
 # Health check
 n=0
@@ -34,7 +34,7 @@ until [ "$n" -ge "$retries" ]; do
     sleep 5
   fi
 done
-
+export KUBECONFIG=$HOME/.kube/talos-digitalocean-cilium-config
 echo "switch context to new kubeconfig"
 kubectl config current-context
 echo "install cilium"

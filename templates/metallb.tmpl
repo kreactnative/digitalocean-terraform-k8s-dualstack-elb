@@ -1,0 +1,19 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ig-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+%{ for node_host in node_map_masters ~}
+    - ${node_host}-${node_host}
+%{endfor}
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: metallb-ls-adv
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - ig-ip-pool

@@ -1,0 +1,73 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: brotli
+  namespace: istio-system
+spec:
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: "envoy.filters.network.http_connection_manager"
+              subFilter:
+                name: "envoy.filters.http.router"
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.compressor
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
+            compressor_library:
+              name: text_optimized
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.compression.brotli.compressor.v3.Brotli
+                quality: 5
+                encoder_mode: DEFAULT
+                window_bits: 18
+                input_block_bits: 24
+                chunk_size: 4096
+            response_direction_config:
+              remove_accept_encoding_header: true
+              common_config:
+                enabled:
+                  default_value: true
+                  runtime_key: response_direction_config_enabled
+                content_type:
+                  - application/atom+xml
+                  - application/geo+json
+                  - application/javascript
+                  - application/x-javascript
+                  - application/json
+                  - application/x-font-woff
+                  - application/ld+json
+                  - application/manifest+json
+                  - application/font-woff2
+                  - application/rdf+xml
+                  - application/rss+xml
+                  - application/vnd.ms-fontobject
+                  - application/wasm
+                  - application/x-web-app-manifest+json
+                  - application/xhtml+xml
+                  - application/xml
+                  - font/eot
+                  - font/otf
+                  - font/ttf
+                  - font/woff2
+                  - image/bmp
+                  - image/svg+xml
+                  - text/cache-manifest
+                  - text/calendar
+                  - text/css
+                  - text/javascript
+                  - text/markdown
+                  - text/plain
+                  - text/xml
+                  - text/vcard
+                  - text/vnd.rim.location.xloc
+                  - text/vtt
+                  - text/x-component
+                  - text/x-cross-domain-policy
+                min_content_length: 800
