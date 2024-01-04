@@ -35,3 +35,6 @@ variable "MASTER_COUNT" {
 variable "WORKER_COUNT" {
   type = number
 }
+variable "image_slug" {
+  type = string
+}

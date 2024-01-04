@@ -1,6 +1,6 @@
 resource "null_resource" "cleanup" {
   provisioner "local-exec" {
-    command     = "rm -f talos_setup.sh cilium.sh talosconfig worker.yaml controlplane.yaml"
+    command     = "rm -f talos_setup.sh cilium.sh talosconfig worker.yaml controlplane.yaml metallb.yaml"
     working_dir = path.root
   }
 }
@@ -40,16 +40,16 @@ resource "local_file" "cilium_config" {
 
 resource "local_file" "metallb_config" {
   depends_on = [
-    module.master_domain.node,
-    module.worker_domain.node,
-    resource.local_file.nginx_config,
+    digitalocean_droplet.control-plane,
+    digitalocean_droplet.worker,
+    digitalocean_loadbalancer.public,
     resource.local_file.cilium_config
   ]
   content = templatefile("${path.root}/templates/metallb.tmpl",
     {
-      node_map_masters   = tolist(module.master_domain.*.address),
-      node_map_workers   = tolist(module.worker_domain.*.address)
-      primary_controller = module.master_domain[0].address
+      node_map_masters   = tolist(digitalocean_droplet.control-plane.*.ipv4_address),
+      node_map_workers   = tolist(digitalocean_droplet.worker.*.ipv4_address)
+      primary_controller = digitalocean_droplet.control-plane[0].ipv4_address
     }
   )
   filename = "metallb.yaml"

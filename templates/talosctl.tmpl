@@ -40,4 +40,10 @@ kubectl config current-context
 echo "install cilium"
 ./cilium.sh
 
+echo "start install metrics-server"
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm repo update
+helm upgrade --install --namespace kube-system -f k8s/metrics.yaml metrics-server metrics-server/metrics-server
+
+
 echo "Successfully created cluster"
