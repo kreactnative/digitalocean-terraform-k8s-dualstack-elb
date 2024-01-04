@@ -1,20 +1,34 @@
-echo 'delete kube-proxy'
+#!/bin/bash
+
+sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+sudo chmod 700 get_helm.sh
+sudo ./get_helm.sh
+sudo cp /usr/local/bin/helm /usr/bin/helm
+
 kubectl -n kube-system delete ds kube-proxy
 kubectl -n kube-system delete cm kube-proxy
-echo 'install cilium'
+
 helm repo add cilium https://helm.cilium.io/
-helm repo update
 helm upgrade --install cilium cilium/cilium \
-    --namespace kube-system \
-    --set ipam.mode=kubernetes \
+    --namespace cilium --create-namespace \
     --set bpf.masquerade=true \
-    --set encryption.nodeEncryption=false \
-    --set k8sServiceHost=${load_balancer} \
-    --set k8sServicePort=443  \
+    --set ipam.operator.clusterPoolIPv4PodCIDR=10.42.0.0/16 \
+    --set ipv4NativeRoutingCIDR=10.0.0.0/8 \
+    --set ipv6NativeRoutingCIDR=fd00::/100 \
+    --set ipv4.enabled=true \
+    --set ipv6.enabled=true \
+    --set k8sServiceHost=${load_balancer_ip} \
+    --set k8sServicePort=6443  \
     --set kubeProxyReplacement=true  \
+    --set bandwidthManager.enabled=true \
     --set operator.replicas=1  \
     --set serviceAccounts.cilium.name=cilium  \
     --set serviceAccounts.operator.name=cilium-operator  \
+    --set ipam.mode=kubernetes \
+    --set ipam.operator.clusterPoolIPv4PodCIDRList="10.220.0.0/16" \
+    --set ipam.operator.clusterPoolIPv6PodCIDRList="fe00::/100" \
+    --set ipam.operator.clusterPoolIPv4MaskSize=24 \
+    --set ipam.operator.clusterPoolIPv6MaskSize=112 \
     --set tunnel=vxlan \
     --set hubble.enabled=true \
     --set hubble.relay.enabled=true \
@@ -22,7 +36,4 @@ helm upgrade --install cilium cilium/cilium \
     --set prometheus.enabled=true \
     --set operator.prometheus.enabled=true \
     --set hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}" \
-    --set securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
-    --set securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
-    --set cgroup.autoMount.enabled=false \
-    --set cgroup.hostRoot=/sys/fs/cgroup
+    --set enableIPv6Masquerade=false

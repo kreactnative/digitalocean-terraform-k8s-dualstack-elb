@@ -4,6 +4,11 @@ variable "do_token" {
 variable "ssh_key" {
   type = string
 }
+variable "user" {
+  description = "user for ssh"
+  type        = string
+  default     = "root"
+}
 variable "loadbalancer_name" {
   type = string
 }

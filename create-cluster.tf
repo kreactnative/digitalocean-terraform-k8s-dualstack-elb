@@ -1,6 +1,6 @@
 resource "null_resource" "cleanup" {
   provisioner "local-exec" {
-    command     = "rm -f talos_setup.sh cilium.sh talosconfig worker.yaml controlplane.yaml metallb.yaml"
+    command     = "rm -f cilium.sh metallb.yaml cluster.yaml"
     working_dir = path.root
   }
 }
@@ -12,7 +12,7 @@ resource "local_file" "cilium_config" {
   ]
   content = templatefile("${path.root}/templates/cilium.tmpl",
     {
-      load_balancer = digitalocean_loadbalancer.public.ip,
+      load_balancer_ip = digitalocean_loadbalancer.public.ip,
     }
   )
   filename        = "cilium.sh"
@@ -28,10 +28,25 @@ resource "local_file" "metallb_config" {
   ]
   content = templatefile("${path.root}/templates/metallb.tmpl",
     {
-      node_map_masters   = tolist(digitalocean_droplet.control-plane.*.ipv4_address),
-      node_map_workers   = tolist(digitalocean_droplet.worker.*.ipv4_address)
-      primary_controller = digitalocean_droplet.control-plane[0].ipv4_address
+      node_map_ipv4_masters = tolist(digitalocean_droplet.control-plane.*.ipv4_address),
+      node_map_ipv6_masters = tolist(digitalocean_droplet.control-plane.*.ipv6_address)
     }
   )
   filename = "metallb.yaml"
+}
+
+resource "local_file" "cluster_config" {
+  depends_on = [
+    module.etcd_domain,
+    module.elb_domain,
+    null_resource.control-plane-config
+  ]
+  content = templatefile("${path.root}/templates/cluster.tmpl",
+    {
+      loadbalancer_ip     = digitalocean_loadbalancer.public.ip,
+      current_master_ip   = digitalocean_droplet.control-plane[0].ipv4_address,
+      current_master_ipv6 = digitalocean_droplet.control-plane[0].ipv6_address
+    }
+  )
+  filename = "cluster.yaml"
 }

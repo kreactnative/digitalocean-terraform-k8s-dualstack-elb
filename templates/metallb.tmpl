@@ -5,7 +5,10 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-%{ for node_host in node_map_masters ~}
+%{ for node_host in node_map_ipv4_masters ~}
+    - ${node_host}-${node_host}
+%{endfor}
+%{ for node_host in node_map_ipv6_masters ~}
     - ${node_host}-${node_host}
 %{endfor}
 ---

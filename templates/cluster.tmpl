@@ -1,0 +1,27 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: ${current_master_ip}
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///var/run/crio/crio.sock
+  kubeletExtraArgs:
+    node-ip: ${current_master_ip},${current_master_ipv6}
+skipPhases:
+  - addon/kube-proxy
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+kubernetesVersion: stable
+controlPlaneEndpoint: "${loadbalancer_ip}:6443"
+clusterName: "proxmox-rocky-etcd-cluster-ha"
+controllerManager:
+  extraArgs:
+    node-cidr-mask-size-ipv4: "24"
+    node-cidr-mask-size-ipv6: "112"
+networking:
+  podSubnet: 10.244.0.0/16,2001:db8:7653:299:cafe:0::/96
+  serviceSubnet: 10.96.0.0/16,2001:db8:7653:299:cafe:1::/112
+apiServer:
+  certSANs:
+    - "${loadbalancer_ip}"
