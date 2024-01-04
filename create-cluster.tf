@@ -37,9 +37,9 @@ resource "local_file" "metallb_config" {
 
 resource "local_file" "cluster_config" {
   depends_on = [
-    module.etcd_domain,
-    module.elb_domain,
-    null_resource.control-plane-config
+    digitalocean_droplet.control-plane,
+    digitalocean_droplet.worker,
+    digitalocean_loadbalancer.public,
   ]
   content = templatefile("${path.root}/templates/cluster.tmpl",
     {
