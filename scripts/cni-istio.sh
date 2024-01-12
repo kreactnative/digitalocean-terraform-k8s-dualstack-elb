@@ -27,4 +27,5 @@ sudo chmod +x istioctl
 
 
 # install ssl
+cd /tmp/ || exit
 kubectl apply -f ssl.yaml

@@ -1,1 +1,1 @@
-kubeadm join 165.22.58.157:6443 --token kb9vcl.tsc5yts709iamxwk --discovery-token-ca-cert-hash sha256:a2e7d934a9e3ca3fd4a981175b69180f8ed02768e3f03477761878e7e7db3a99 --control-plane --certificate-key 45cac6a11b63b0884c6949e610912dabec39742c4024697fa668b0d0415f7364
+kubeadm join 128.199.195.244:6443 --token 16lgj4.ynzg2bd31i9qiae5 --discovery-token-ca-cert-hash sha256:1482bb68343d12dc4ffc19f9350262f86ed0e2f67b1b52f942b2d6cc82cca476 --control-plane --certificate-key 637c51d47594437cc95add18e19abbdf89599445a94e1be11c4ec2cb2f2471fe

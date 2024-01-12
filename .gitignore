@@ -44,3 +44,5 @@ talosconfig
 worker.yaml
 cilium.sh
 metallb.yaml
+join-master.sh
+join-worker.sh
