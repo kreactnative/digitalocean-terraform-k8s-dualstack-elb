@@ -9,15 +9,9 @@ variable "user" {
   type        = string
   default     = "root"
 }
-variable "loadbalancer_name" {
-  type = string
-}
 variable "region" {
   type    = string
   default = "sgp1"
-}
-variable "tag_elb_master_name" {
-  type = string
 }
 variable "master_size" {
   type = string

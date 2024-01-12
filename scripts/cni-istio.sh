@@ -16,7 +16,7 @@ helm upgrade --install loki grafana/loki-stack --namespace loki --create-namespa
 helm repo add jetstack https://charts.jetstack.io
 helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
 
-kubectl apply -f metal-ip.yaml
+kubectl apply -f metallb-ip.yaml
 
 # install istio/istioctl
 cd /tmp/ || exit
