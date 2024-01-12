@@ -1,0 +1,1 @@
+kubeadm join 159.223.34.229:6443 --token mth6ds.bjhli6a434cj5kvo --discovery-token-ca-cert-hash sha256:c035fa52ea931e1373823d327adce1e1eb7063702774037b47fb77aa635a4355 --control-plane --certificate-key df1b9e72bba29b441b37c9d546c8f4c68f3f6bdaab2c3e52aeaf3da7fa6d3dab
