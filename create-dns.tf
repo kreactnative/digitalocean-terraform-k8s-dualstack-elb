@@ -1,5 +1,5 @@
 resource "digitalocean_domain" "default" {
-  name = "dualstack.thaidevops.co"
+  name = var.domain_name
 }
 resource "digitalocean_record" "ipv4" {
   domain = digitalocean_domain.default.id

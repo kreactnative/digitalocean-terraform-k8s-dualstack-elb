@@ -28,12 +28,16 @@ variable "worker_name" {
   default = "talos-worker"
 }
 variable "MASTER_COUNT" {
-  type = number
+  type    = number
+  default = 1
 }
 
 variable "WORKER_COUNT" {
   type = number
 }
 variable "image_slug" {
+  type = string
+}
+variable "domain_name" {
   type = string
 }

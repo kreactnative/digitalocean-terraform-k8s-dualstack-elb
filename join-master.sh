@@ -1,1 +1,0 @@
-kubeadm join 128.199.107.242:6443 --token 3cdwq9.lm66knxwdsxeyf7a --discovery-token-ca-cert-hash sha256:ce2574dd050332be92d65e244843606b8c3a0c48dc30139b45edef3af222febe --control-plane --certificate-key 4c4279ae3e32d25ee12d8ca4e910ac939ed40706120af142b4a181a9a71cc3db
