@@ -5,9 +5,6 @@ sudo chmod 700 get_helm.sh
 sudo ./get_helm.sh
 sudo cp /usr/local/bin/helm /usr/bin/helm
 
-#kubectl -n kube-system delete ds kube-proxy
-#kubectl -n kube-system delete cm kube-proxy
-
 helm repo add cilium https://helm.cilium.io/
 helm upgrade --install cilium cilium/cilium \
     --namespace cilium --create-namespace \
