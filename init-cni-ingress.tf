@@ -17,6 +17,16 @@ resource "local_file" "helm_ciliun_config" {
 resource "null_resource" "init-cni-ig" {
   depends_on = [null_resource.join-first-master, null_resource.init-worker, local_file.helm_ciliun_config, digitalocean_droplet.control-plane, digitalocean_droplet.worker]
   provisioner "file" {
+    source      = "k8s/ssl.yaml"
+    destination = "/tmp/ssl.yaml"
+    connection {
+      type        = "ssh"
+      user        = var.user
+      host        = digitalocean_droplet.control-plane[0].ipv4_address
+      private_key = file("~/.ssh/id_rsa")
+    }
+  }
+  provisioner "file" {
     source      = "k8s/metallb-ip.yaml"
     destination = "/tmp/metallb-ip.yaml"
     connection {

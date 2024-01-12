@@ -1,0 +1,134 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digitalocean-dns
+data:
+  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digitalocean-dns
+  namespace: istio-system
+data:
+  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digitalocean-dns
+  namespace: cert-manager
+data:
+  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-cluster
+  namespace: istio-system
+spec:
+  acme:
+    email: dotnetnat@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-cluster
+    solvers:
+      - dns01:
+          digitalocean:
+            tokenSecretRef:
+              name: digitalocean-dns
+              key: access-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dualstack-domain-cert-prod
+  namespace: istio-system
+spec:
+  secretName: dualstack-domain-cert-prod
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - "*.dualstack.thaidevops.co"
+  issuerRef:
+    name: letsencrypt-prod-cluster
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: dualstack-thaidevops-gateway
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*.dualstack.thaidevops.co"
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "*.dualstack.thaidevops.co"
+      tls:
+        mode: SIMPLE
+        credentialName: dualstack-domain-cert-prod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hubble-vs
+  namespace: cilium
+spec:
+  gateways:
+    - "istio-system/dualstack-thaidevops-gateway"
+  hosts:
+    - "hubble-ui.dualstack.thaidevops.co"
+  http:
+    - match:
+        - uri:
+            prefix: /
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: hubble-ui
+            port:
+              number: 80
+---
+ind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: kube-prometheus-stack
+spec:
+  gateways:
+    - "istio-system/dualstack-thaidevops-gateway"
+  hosts:
+    - "grafana.dualstack.thaidevops.co"
+  http:
+    - match:
+        - uri:
+            prefix: /
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: kube-prometheus-stack-grafana
+            port:
+              number: 80

@@ -24,3 +24,7 @@ curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.20.2 sh -
 cd istio-1.20.2/bin || exit
 sudo chmod +x istioctl
 ./istioctl install -f /tmp/istio-operator.yaml -y
+
+
+# install ssl
+kubectl apply -f ssl.yaml
