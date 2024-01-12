@@ -15,7 +15,7 @@ resource "local_file" "helm_ciliun_config" {
 }
 
 resource "null_resource" "init-cni-ig" {
-  depends_on = [null_resource.control-plane-setup, null_resource.worker-setup, local_file.helm_ciliun_config, digitalocean_droplet.control-plane, digitalocean_droplet.worker]
+  depends_on = [null_resource.join-first-master, null_resource.init-worker, local_file.helm_ciliun_config, digitalocean_droplet.control-plane, digitalocean_droplet.worker]
   provisioner "file" {
     source      = "k8s/metallb-ip.yaml"
     destination = "/tmp/metallb-ip.yaml"

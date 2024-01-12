@@ -1,1 +1,1 @@
-kubeadm join 206.189.82.210:6443 --token 12uovu.1s2u46sk9u1i9pi3 --discovery-token-ca-cert-hash sha256:4c72aec7ea06e1f6db6d7e21e8c9293393a1268a574c032dc0ba037c98d8733e 
+kubeadm join 165.232.166.151:6443 --token m8wg45.j990ij1pucdgr5ph --discovery-token-ca-cert-hash sha256:f8cde45da0d80799da8058fddbde418b8c6e74cdba7bbf6a95f66570f0a04756 

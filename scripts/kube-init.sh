@@ -1,7 +1,5 @@
 #!/bin/bash
 cd /tmp/ 
-#sudo mkdir -p /etc/kubernetes/pki/etcd
-#sudo cp ca.pem etcd.pem etcd-key.pem /etc/kubernetes/pki/etcd/
 sudo kubeadm init --config=cluster.yaml --upload-certs
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

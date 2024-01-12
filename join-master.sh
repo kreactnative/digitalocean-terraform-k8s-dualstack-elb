@@ -1,1 +1,1 @@
-kubeadm join 206.189.82.210:6443 --token ee7ko7.li7jlik9oslufguo --discovery-token-ca-cert-hash sha256:4c72aec7ea06e1f6db6d7e21e8c9293393a1268a574c032dc0ba037c98d8733e --control-plane --certificate-key f1e4864cc2811666c7498d6177fa36b695fa3c10d2940b7ea519286886ca818e
+kubeadm join 165.232.166.151:6443 --token fbgi2c.lg8ynmjknsan2pi9 --discovery-token-ca-cert-hash sha256:f8cde45da0d80799da8058fddbde418b8c6e74cdba7bbf6a95f66570f0a04756 --control-plane --certificate-key a6c8cd1e7f63e6e35ba0cfb38b9f0260d3b6d65f03798f32e4272347ea4365d5

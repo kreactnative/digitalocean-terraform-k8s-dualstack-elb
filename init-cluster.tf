@@ -1,6 +1,12 @@
+resource "null_resource" "cleanup" {
+  provisioner "local-exec" {
+    command     = "mkdir -p output && rm -f cluster.yaml join-master.sh join-worker.sh helm-cni-lb.sh"
+    working_dir = path.root
+  }
+}
 resource "local_file" "cluster_config" {
   depends_on = [
-    null_resource.control-plane-setup, null_resource.worker-setup
+    null_resource.control-plane-setup, null_resource.worker-setup, null_resource.cleanup
   ]
   content = templatefile("${path.root}/templates/cluster.tmpl",
     {

@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /tmp/ || exit
+export KUBECONFIG=/etc/kubernetes/admin.conf
 kubectl apply -f metrics-server.yaml
 helm repo add metallb https://metallb.github.io/metallb
 helm repo update
