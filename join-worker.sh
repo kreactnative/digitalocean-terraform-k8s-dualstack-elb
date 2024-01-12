@@ -1,1 +1,1 @@
-kubeadm join 159.223.34.229:6443 --token oc8ata.bsle3cgfdkgaoas4 --discovery-token-ca-cert-hash sha256:c035fa52ea931e1373823d327adce1e1eb7063702774037b47fb77aa635a4355 
+kubeadm join 128.199.107.167:6443 --token rk59x5.8j5z8lb13mo86jo6 --discovery-token-ca-cert-hash sha256:3b799c437321b82cac57b6fcad1ffd5248593a287ced53244161b005a46aa3bf 

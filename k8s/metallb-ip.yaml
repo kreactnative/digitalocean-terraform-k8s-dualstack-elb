@@ -1,0 +1,18 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: metallb-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - ig_load_balancer_ip4/32
+    - ig_load_balancer_ip6-ig_load_balancer_ip6
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: metallb-ls-adv
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - metallb-ip-pool
