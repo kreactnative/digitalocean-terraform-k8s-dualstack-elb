@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: digitalocean-dns
 data:
-  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+  access-token: "ZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmY="
 ---
 apiVersion: v1
 kind: Secret
@@ -11,7 +11,7 @@ metadata:
   name: digitalocean-dns
   namespace: istio-system
 data:
-  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+  access-token: "ZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmY="
 ---
 apiVersion: v1
 kind: Secret
@@ -19,7 +19,7 @@ metadata:
   name: digitalocean-dns
   namespace: cert-manager
 data:
-  access-token: "ZZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmYK"
+  access-token: "ZG9wX3YxX2EyZmY3NmE0NWM1MjM1NzMyMWZhZDM0ZGIyZDIxZDFkOTQzNmJjNzUxNzFiYjljNTcxNTI4YmJlOGQ4YTJjNmY="
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -112,7 +112,8 @@ spec:
             port:
               number: 80
 ---
-ind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
   name: grafana-vs
   namespace: kube-prometheus-stack

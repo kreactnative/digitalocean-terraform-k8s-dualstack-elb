@@ -1,1 +1,1 @@
-kubeadm join 128.199.195.244:6443 --token n0jjtg.rja197lim2dfvnf6 --discovery-token-ca-cert-hash sha256:1482bb68343d12dc4ffc19f9350262f86ed0e2f67b1b52f942b2d6cc82cca476 
+kubeadm join 128.199.238.154:6443 --token jvjjsm.5vfc7qbicbd4dyxm --discovery-token-ca-cert-hash sha256:5c7bf28eac1ac7a928d9791a834a0b84d6898c946cce207151f1dd30dfbcaacb 
