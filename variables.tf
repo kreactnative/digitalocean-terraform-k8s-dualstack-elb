@@ -18,14 +18,14 @@ variable "master_size" {
 }
 variable "master_name" {
   type    = string
-  default = "talos-master"
+  default = "k8s-master"
 }
 variable "worker_size" {
   type = string
 }
 variable "worker_name" {
   type    = string
-  default = "talos-worker"
+  default = "k8s-worker"
 }
 variable "MASTER_COUNT" {
   type    = number
