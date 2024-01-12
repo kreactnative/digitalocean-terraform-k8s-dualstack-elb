@@ -15,7 +15,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm upgrade --install loki grafana/loki-stack --namespace loki --create-namespace --set grafana.enabled=false
 helm repo add jetstack https://charts.jetstack.io
 helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
-
+kubectl delete validatingwebhookconfigurations metallb-webhook-configuration
 kubectl apply -f metallb-ip.yaml
 
 # install istio/istioctl

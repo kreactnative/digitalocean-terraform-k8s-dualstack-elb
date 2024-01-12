@@ -5,7 +5,7 @@ dnf update --allowerasing --skip-broken --nobest  -y
 #cat /etc/rocky-release
 uname -r
 setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sed -i 's/^SELINUX=enforcing$/SELINUX=disabled/' /etc/selinux/config
 
 
 ## only fedora
